@@ -1,35 +1,43 @@
-#include "cmplx.hpp"
-using namespace std;
+#include "complex.hpp"
 
-cmplx::cmplx()    //default constructor for complex class
-{
-    real=0;
-    img=0;
-  cout<< "Default Constructor\n ";
+// Default Constructor
+Complex::Complex() : real(0), img(0) {}
+
+// Parameterized Constructor
+Complex::Complex(double r, double i) : real(r), img(i) {}
+
+// Function to add two complex numbers
+Complex Complex::add(const Complex& other) {
+    return Complex(real + other.real, img + other.img);
 }
 
-void cmplx::display()            //prints cmplx no. in 2 forms
-{
-cout << real << "+" << img <<"i"<<std::endl;
-cout << real << "-" << img <<"i"<<std::endl;
-cout << real << "*" << img <<"i"<<std::endl;
+// Function to subtract two complex numbers
+Complex Complex::sub(const Complex& other) {
+    return Complex(real - other.real, img - other.img);
 }
 
-cmplx cmplx::add (cmplx y)       
-{
-    return cmplx(real + y.real, img + y.img);
+// Function to multiply two complex numbers
+Complex Complex::mult(const Complex& other) {
+    return Complex((real * other.real) - (img * other.img), (real * other.img) + (img * other.real));
 }
 
-cmplx cmplx::sub (cmplx y)        
-{
-   return cmplx(real - y.real, img - y.img);
+// Function to return the complex conjugate
+Complex Complex::conjugate() {
+    return Complex(real, -img);
 }
 
-cmplx cmplx::mult (cmplx y)        
-{
-  return cmplx((real * y.real)-(img * y.img),(real * y.img) + (img * y.real));
+// Function to return the norm (magnitude squared)
+double Complex::norm() {
+    return (real * real) + (img * img);
 }
 
-cmplx cmplx::conj(){
-    return cmplx(real,-img);
+// Function to display the complex number
+void Complex::display() {
+    std::cout << real;
+    if (img >= 0) {
+        std::cout << " + " << img << "i" << std::endl;
+    } else {
+        std::cout << " - " << -img << "i" << std::endl;
+    }
 }
+
