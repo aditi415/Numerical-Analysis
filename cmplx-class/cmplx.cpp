@@ -40,4 +40,3 @@ void Complex::display() {
         std::cout << " - " << -img << "i" << std::endl;
     }
 }
-
