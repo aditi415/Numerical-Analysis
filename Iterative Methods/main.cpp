@@ -1,7 +1,7 @@
 #include "matrix.hpp"
 #include <iostream>
 
-int main() {
+int main(){
         if (augMatrix.isDiagonallyDominant()) {
             std::cout << "Augmented matrix is diagonally dominant.\n";
         } else {
