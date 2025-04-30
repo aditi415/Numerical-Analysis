@@ -5,25 +5,21 @@ using namespace std;
 
 int main() {
     const int n = 3;
-    double x_vals[n], y_vals[n];
-    ifstream infile("poly.txt");
+    double x_arr[n], y_arr[n];
 
-    if (!infile) {
-        cerr << "Error opening file." << endl;
-        return 1;
-    }
-
-    for (int i = 0; i < n; ++i) {
-        infile >> x_vals[i] >> y_vals[i];
-    }
-    infile.close();
+    ifstream file("data.txt");
+    for (int i = 0; i < n && file; ++i)
+        file >> x_arr[i] >> y_arr[i];
+    file.close();
 
     double x;
-    cout << "Enter value of x to evaluate the polynomial: ";
+    cout << "Enter x: ";
     cin >> x;
 
-    double result = lagrangeInterpolation(x, x_vals, y_vals, n);
-    cout << "Interpolated value at x = " << x << " is " << result << endl;
+    Lagrange lag(n);
+    lag.setData(x_arr, y_arr);
+
+    cout << "Interpolated value: " << lag.interpolate(x) << endl;
 
     return 0;
 }
