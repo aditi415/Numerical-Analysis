@@ -1,4 +1,4 @@
-#include "lagrange.h"
+#include "lagrange.hpp"
 
 Lagrange::Lagrange(int size) {
     n = size;
