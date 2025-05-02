@@ -201,3 +201,69 @@ void Matrix::makeDiagonallyDominant() {
         std::cout << "It is not possible to make the matrix diagonally dominant.\n";
     }
 }
+
+std::vector<double> Matrix::gaussJacobi(double tolerance) const {
+    if (rows + 1 != cols) {
+        throw std::invalid_argument("Invalid augmented matrix format for Gauss-Jacobi");
+    }
+
+    std::vector<double> x(rows, 0.0);
+    std::vector<double> x_new(rows, 0.0);
+
+    while (true) {
+        for (int i = 0; i < rows; ++i) {
+            double sum = data[i][cols - 1];
+            for (int j = 0; j < cols - 1; ++j) {
+                if (j != i) {
+                    sum -= data[i][j] * x[j];
+                }
+            }
+            x_new[i] = sum / data[i][i];
+        }
+
+        bool converged = true;
+        for (int i = 0; i < rows; ++i) {
+            if (std::abs(x_new[i] - x[i]) > tolerance) {
+                converged = false;
+                break;
+            }
+        }
+        x = x_new;
+        if (converged) break;
+    }
+
+    return x;
+}
+
+std::vector<double> Matrix::gaussSeidel(double tolerance) const {
+    if (rows + 1 != cols) {
+        throw std::invalid_argument("Invalid augmented matrix format for Gauss-Seidel");
+    }
+
+    std::vector<double> x(rows, 0.0);
+
+    while (true) {
+        std::vector<double> x_old = x;
+
+        for (int i = 0; i < rows; ++i) {
+            double sum = data[i][cols - 1];
+            for (int j = 0; j < cols - 1; ++j) {
+                if (j != i) {
+                    sum -= data[i][j] * x[j];
+                }
+            }
+            x[i] = sum / data[i][i];
+        }
+
+        bool converged = true;
+        for (int i = 0; i < rows; ++i) {
+            if (std::abs(x[i] - x_old[i]) > tolerance) {
+                converged = false;
+                break;
+            }
+        }
+        if (converged) break;
+    }
+
+    return x;
+}
