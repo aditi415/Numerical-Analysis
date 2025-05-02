@@ -32,34 +32,37 @@ int main() {
         } else {
             std::cout << "Matrix 2 is not symmetric.\n";
         }
-         
-       if (mat1.isIdentity()) {
-            std::cout << "Matrix 1 is Identity.\n";
-        } else {
-            std::cout << "Matrix 1 is not Identity.\n";
-        }
-        
-         if (mat1.isIdentity()) {
-            std::cout << "Matrix 1 is Identity.\n";
-        } else {
-            std::cout << "Matrix 1 is not Identity.\n";
-        }
-        
 
+        if (mat1.isIdentity()) {
+            std::cout << "Matrix 1 is an identity matrix.\n";
+        } else {
+            std::cout << "Matrix 1 is not an identity matrix.\n";
+        }
+
+        // Diagonal Dominance Check
+        if (mat1.isDiagonallyDominant()) {
+            std::cout << "Matrix 1 is diagonally dominant.\n";
+        } else {
+            std::cout << "Matrix 1 is not diagonally dominant.\n";
+            mat1.makeDiagonallyDominant();
+            std::cout << "Matrix 1 after attempting to make diagonally dominant:\n";
+            mat1.print();
+        }
+
+        // Solve system of equations
         Matrix augMatrix("augmented_matrix.txt");
         std::vector<double> solution;
         augMatrix.gaussianElimination(solution);
 
-        std::cout << "Solution:\n";
+        std::cout << "Solution to linear system:\n";
         for (double val : solution) {
             std::cout << val << " ";
         }
         std::cout << std::endl;
+
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
-    
+
     return 0;
 }
-
-
