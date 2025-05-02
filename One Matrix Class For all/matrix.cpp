@@ -142,3 +142,62 @@ void Matrix::pivot(int row) {
     }
 }
 
+bool Matrix::isDiagonallyDominant() const {
+    if (rows != cols) {
+        return false;
+    }
+
+    for (int i = 0; i < rows; ++i) {
+        double diag = std::abs(data[i][i]);
+        double sum = 0.0;
+        for (int j = 0; j < cols; ++j) {
+            if (i != j) {
+                sum += std::abs(data[i][j]);
+            }
+        }
+
+        if (diag < sum) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Matrix::makeDiagonallyDominant() {
+    if (isDiagonallyDominant()) {
+        std::cout << "Matrix is already diagonally dominant.\n";
+        return;
+    }
+
+    std::vector<std::vector<double>> newMatrix = data;
+    bool changed = false;
+
+    for (int i = 0; i < rows; ++i) {
+        int bestRow = -1;
+        for (int j = i; j < rows; ++j) {
+            double diag = std::abs(newMatrix[j][i]);
+            double sum = 0.0;
+            for (int k = 0; k < cols; ++k) {
+                if (k != i) sum += std::abs(newMatrix[j][k]);
+            }
+
+            if (diag >= sum) {
+                bestRow = j;
+                break;
+            }
+        }
+
+        if (bestRow != -1 && bestRow != i) {
+            std::swap(newMatrix[i], newMatrix[bestRow]);
+            changed = true;
+        }
+    }
+
+    Matrix temp(newMatrix);
+    if (temp.isDiagonallyDominant()) {
+        data = newMatrix;
+        std::cout << "Matrix was transformed into diagonally dominant form.\n";
+    } else {
+        std::cout << "It is not possible to make the matrix diagonally dominant.\n";
+    }
+}
