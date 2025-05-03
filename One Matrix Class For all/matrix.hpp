@@ -16,6 +16,9 @@ private:
     void pivot(int row);
     void backSubstitution(std::vector<double>& solution);
 
+    std::vector<std::vector<double>> A;
+    int n;
+
 public:
     Matrix(int r, int c);
     Matrix(const std::string& filename);
@@ -35,6 +38,14 @@ public:
     void print() const;
     std::vector<double> gaussJacobi(double tolerance = 1e-6) const;
     std::vector<double> gaussSeidel(double tolerance = 1e-6) const;
+
+    LUDecomposition(const std::vector<std::vector<double>>& matrix);
+
+    void croutDecomposition(std::vector<std::vector<double>>& L, std::vector<std::vector<double>>& U);
+    void doolittleDecomposition(std::vector<std::vector<double>>& L, std::vector<std::vector<double>>& U);
+    void choleskyDecomposition(std::vector<std::vector<double>>& L);
+
+    void printMatrix(const std::vector<std::vector<double>>& matrix, const std::string& name);
 };
 
 #endif // MATRIX_HPP
