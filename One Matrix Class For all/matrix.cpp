@@ -266,4 +266,86 @@ std::vector<double> Matrix::gaussSeidel(double tolerance) const {
     }
 
     return x;
+}  
+
+                                //LU Decomposition methods
+
+LUDecomposition::LUDecomposition(const std::vector<std::vector<double>>& matrix) : A(matrix) {
+    n = matrix.size();
+}
+
+void LUDecomposition::croutDecomposition(std::vector<std::vector<double>>& L, std::vector<std::vector<double>>& U) {
+    L.assign(n, std::vector<double>(n, 0));
+    U.assign(n, std::vector<double>(n, 0));
+
+    for (int j = 0; j < n; ++j) {
+        U[j][j] = 1.0;
+
+        for (int i = j; i < n; ++i) {
+            double sum = 0;
+            for (int k = 0; k < j; ++k)
+                sum += L[i][k] * U[k][j];
+            L[i][j] = A[i][j] - sum;
+        }
+
+        for (int i = j + 1; i < n; ++i) {
+            double sum = 0;
+            for (int k = 0; k < j; ++k)
+                sum += L[j][k] * U[k][i];
+            U[j][i] = (A[j][i] - sum) / L[j][j];
+        }
+    }
+}
+
+void LUDecomposition::doolittleDecomposition(std::vector<std::vector<double>>& L, std::vector<std::vector<double>>& U) {
+    L.assign(n, std::vector<double>(n, 0));
+    U.assign(n, std::vector<double>(n, 0));
+
+    for (int i = 0; i < n; ++i) {
+        L[i][i] = 1.0;
+
+        for (int k = i; k < n; ++k) {
+            double sum = 0;
+            for (int j = 0; j < i; ++j)
+                sum += L[i][j] * U[j][k];
+            U[i][k] = A[i][k] - sum;
+        }
+
+        for (int k = i + 1; k < n; ++k) {
+            double sum = 0;
+            for (int j = 0; j < i; ++j)
+                sum += L[k][j] * U[j][i];
+            L[k][i] = (A[k][i] - sum) / U[i][i];
+        }
+    }
+}
+
+void LUDecomposition::choleskyDecomposition(std::vector<std::vector<double>>& L) {
+    L.assign(n, std::vector<double>(n, 0));
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            double sum = 0;
+
+            if (i == j) {
+                for (int k = 0; k < j; ++k)
+                    sum += L[j][k] * L[j][k];
+                L[j][j] = std::sqrt(A[j][j] - sum);
+            } else {
+                for (int k = 0; k < j; ++k)
+                    sum += L[i][k] * L[j][k];
+                L[i][j] = (A[i][j] - sum) / L[j][j];
+            }
+        }
+    }
+}
+
+void LUDecomposition::printMatrix(const std::vector<std::vector<double>>& matrix, const std::string& name) {
+    std::cout << name << " Matrix:\n";
+    for (const auto& row : matrix) {
+        for (double val : row)
+            std::cout << val << "\t";
+        std::cout << "\n";
+    }
+    std::cout << std::endl;
 }
