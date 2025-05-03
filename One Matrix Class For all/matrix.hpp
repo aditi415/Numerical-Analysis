@@ -33,6 +33,8 @@ public:
 
     void gaussianElimination(std::vector<double>& solution);
     void print() const;
+    std::vector<double> gaussJacobi(double tolerance = 1e-6) const;
+    std::vector<double> gaussSeidel(double tolerance = 1e-6) const;
 };
 
 #endif // MATRIX_HPP
