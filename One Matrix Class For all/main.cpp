@@ -76,6 +76,34 @@ int main() {
                 std::cout << val << " ";
             }
             std::cout << std::endl;
+
+    std::vector<std::vector<double>> readMatrix(const std::string& filename) {
+    std::ifstream file(filename);
+    int n;
+    file >> n;
+
+    std::vector<std::vector<double>> mat(n, std::vector<double>(n));
+    for (auto& row : mat)
+        for (double& val : row)
+            file >> val;
+
+    return mat;
+}  
+    auto matrix = readMatrix("matrix.txt");
+    LUDecomposition lu(matrix);
+
+    std::vector<std::vector<double>> L, U;
+
+    lu.croutDecomposition(L, U);
+    lu.printMatrix(L, "Crout L");
+    lu.printMatrix(U, "Crout U");
+
+    lu.doolittleDecomposition(L, U);
+    lu.printMatrix(L, "Doolittle L");
+    lu.printMatrix(U, "Doolittle U");
+
+    lu.choleskyDecomposition(L);
+    lu.printMatrix(L, "Cholesky L");
         
 
     } catch (const std::exception& e) {
