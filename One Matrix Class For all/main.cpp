@@ -49,7 +49,7 @@ int main() {
             mat1.print();
         }
 
-        // Solve system of equations
+                           // Solve system of equations by Gaussian Elimination
         Matrix augMatrix("augmented_matrix.txt");
         std::vector<double> solution;
         augMatrix.gaussianElimination(solution);
@@ -59,7 +59,8 @@ int main() {
             std::cout << val << " ";
         }
         std::cout << std::endl;
-
+                       //Iterative methods Gauss-Jacobi  & Seidel
+        
         std::cout << "Gauss-Jacobi Iterative Method Solution:\n";
             std::vector<double> jacobiSolution = augMatrix.gaussJacobi(1e-6);
             for (double val : jacobiSolution) {
