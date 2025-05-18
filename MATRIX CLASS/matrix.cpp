@@ -3,28 +3,39 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
-#include <stdexcept>
 
 Matrix::Matrix() : rows(0), cols(0) {}
 
 Matrix::Matrix(int r, int c) : rows(r), cols(c), data(r, std::vector<double>(c, 0.0)) {}
 
-void Matrix::readFromFile(const std::string& filename) {
+bool Matrix::readFromFile(const std::string& filename) {
     std::ifstream file(filename);
-    if (!file.is_open()) throw std::runtime_error("Cannot open file.");
-    file >> rows >> cols;
+    if (!file.is_open()) return false;
+
+    std::vector<double> flatData;
+    double value;
+    while (file >> value) flatData.push_back(value);
+    file.close();
+
+    int size = static_cast<int>(std::sqrt(flatData.size()));
+    if (size * size != static_cast<int>(flatData.size())) return false;
+
+    rows = cols = size;
     data.resize(rows, std::vector<double>(cols));
+
+    int idx = 0;
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < cols; ++j)
-            file >> data[i][j];
-    file.close();
+            data[i][j] = flatData[idx++];
+
+    return true;
 }
 
 void Matrix::print() const {
     for (const auto& row : data) {
         for (double val : row)
             std::cout << val << " ";
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 }
 
@@ -64,7 +75,6 @@ void Matrix::makeDiagonallyDominant() {
 }
 
 Matrix Matrix::add(const Matrix& other) const {
-    if (rows != other.rows || cols != other.cols) throw std::runtime_error("Size mismatch");
     Matrix result(rows, cols);
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < cols; ++j)
@@ -73,7 +83,6 @@ Matrix Matrix::add(const Matrix& other) const {
 }
 
 Matrix Matrix::subtract(const Matrix& other) const {
-    if (rows != other.rows || cols != other.cols) throw std::runtime_error("Size mismatch");
     Matrix result(rows, cols);
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < cols; ++j)
@@ -82,7 +91,6 @@ Matrix Matrix::subtract(const Matrix& other) const {
 }
 
 Matrix Matrix::multiply(const Matrix& other) const {
-    if (cols != other.rows) throw std::runtime_error("Invalid multiplication dimensions");
     Matrix result(rows, other.cols);
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < other.cols; ++j)
@@ -117,7 +125,7 @@ std::vector<double> Matrix::gaussianElimination(std::vector<double> b) {
 }
 
 void Matrix::choleskyDecomposition(Matrix& L) {
-    for (int i = 0; i < rows; ++i) {
+    for (int i = 0; i < rows; ++i)
         for (int j = 0; j <= i; ++j) {
             double sum = 0;
             for (int k = 0; k < j; ++k)
@@ -127,7 +135,6 @@ void Matrix::choleskyDecomposition(Matrix& L) {
             else
                 L.data[i][j] = (data[i][j] - sum) / L.data[j][j];
         }
-    }
 }
 
 void Matrix::croutDecomposition(Matrix& L, Matrix& U) {
