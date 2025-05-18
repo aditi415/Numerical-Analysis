@@ -13,7 +13,8 @@ private:
 public:
     Matrix();
     Matrix(int r, int c);
-    void readFromFile(const std::string& filename);
+
+    bool readFromFile(const std::string& filename);
     void print() const;
 
     bool isSymmetric() const;
@@ -40,4 +41,4 @@ public:
     const double& at(int r, int c) const;
 };
 
-#endif
+#endif // MATRIX_HPP
