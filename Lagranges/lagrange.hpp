@@ -1,7 +1,7 @@
 #ifndef LAGRANGE_HPP
 #define LAGRANGE_HPP
 
-class Lagrange {
+class Lagrange { 
 private:
     double* x_vals;
     double* y_vals;
