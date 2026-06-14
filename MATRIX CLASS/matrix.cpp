@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cmath>
 
-Matrix::Matrix() : rows(0), cols(0) {}
+Matrix::Matrix() : rows(0), cols(0) {} 
 
 Matrix::Matrix(int r, int c) : rows(r), cols(c), data(r, std::vector<double>(c, 0.0)) {}
 
