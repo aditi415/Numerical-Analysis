@@ -26,10 +26,12 @@ Complex Complex::conjugate() {
     return Complex(real, -img);
 }
 
+
 // Function to return the norm (magnitude squared)
 double Complex::norm() {
     return (real * real) + (img * img);
 }
+
 
 // Function to display the complex number
 void Complex::display() {
