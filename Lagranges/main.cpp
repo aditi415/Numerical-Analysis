@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
+
 #include "lagrange.hpp"
+
 using namespace std;
 
 int main() {
