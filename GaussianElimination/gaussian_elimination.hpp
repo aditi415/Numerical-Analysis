@@ -15,4 +15,5 @@ private:
     int n;                                        //stores number of equation
     void pivot(int row);                         //partial pivoting
 };
+
 #endif // GAUSSIAN_ELIMINATION_HPP
