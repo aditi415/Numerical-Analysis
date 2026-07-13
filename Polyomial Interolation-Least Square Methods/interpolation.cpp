@@ -1,5 +1,4 @@
 #include "interpolation.hpp"
-
 #include <fstream>
 #include <cmath>
 #include <iostream>
