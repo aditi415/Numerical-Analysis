@@ -8,6 +8,7 @@ int main() {
         {-2, 1, 2, -3}
     };
 
+    
     GaussianElimination ge(matrix);            //create instance & initi with matrix
     std::cout << "Original matrix:" << std::endl;
     ge.printMatrix();                     //print original matrix 
