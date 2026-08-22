@@ -1,6 +1,5 @@
 #ifndef GAUSSIAN_ELIMINATION_HPP
 #define GAUSSIAN_ELIMINATION_HPP
-
 #include <vector>
 
 class GaussianElimination {                //defines class
