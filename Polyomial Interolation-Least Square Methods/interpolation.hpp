@@ -1,5 +1,6 @@
 #ifndef INTERPOLATION_HPP
 #define INTERPOLATION_HPP
+
 #include <vector>
 #include <string>
 
