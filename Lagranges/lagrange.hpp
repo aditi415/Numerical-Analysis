@@ -6,7 +6,6 @@ private:
     double* x_vals;
     double* y_vals;
     int n;
-
 public:
     Lagrange(int size);
     ~Lagrange();
