@@ -1,5 +1,6 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
+
 #include <iostream>
 #include <cmath> // For norm calculation
 
