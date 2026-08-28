@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "cmplx.hpp"
 
 int main()
