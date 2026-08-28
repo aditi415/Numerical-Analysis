@@ -1,5 +1,4 @@
 #include "complex.hpp"
-
 // Default Constructor
 Complex::Complex() : real(0), img(0) {}
 
