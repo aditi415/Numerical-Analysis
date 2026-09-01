@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "RootFinding.hpp"
 
 using namespace std;
