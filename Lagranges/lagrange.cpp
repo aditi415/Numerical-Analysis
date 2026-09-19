@@ -5,7 +5,6 @@ Lagrange::Lagrange(int size) {
     x_vals = new double[n];
     y_vals = new double[n];
 }
-
 Lagrange::~Lagrange() {
     delete[] x_vals;
     delete[] y_vals;
