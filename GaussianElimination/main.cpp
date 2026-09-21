@@ -1,5 +1,6 @@
 #include "gaussian_elimination.hpp"
 #include <iostream>
+
 int main() {
     std::vector<std::vector<double>> matrix = {
         {2, 1, -1, 8},                     //3x4 augmented matrix
