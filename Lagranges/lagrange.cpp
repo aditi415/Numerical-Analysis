@@ -1,6 +1,5 @@
 #include "lagrange.hpp"
 
-
 Lagrange::Lagrange(int size) {
     n = size;
     x_vals = new double[n];
